@@ -1,0 +1,27 @@
+env: local # local dev prod
+http_server:
+  host: 0.0.0.0
+  port: 8000
+grpc_server:
+  host: 0.0.0.0
+  port: 3000
+db:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: postgres
+  db_name: postgres
+redis:
+  host: redis
+  port: 6379
+  password:
+rabbit:
+  host: rabbitmq
+  port: 6379
+  user: guest
+  password: guest
+email:
+  smtp_host: smtp.gmail.com
+  smtp_port: 587
+  smtp_user: example@gmail.com
+  smtp_password: password

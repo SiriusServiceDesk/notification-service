@@ -1,0 +1,359 @@
+definitions:
+  gitlab.com_NaMeste_notification-service_internal_web_message.ErrorResponse:
+    properties:
+      error: {}
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  gitlab.com_NaMeste_notification-service_internal_web_status.Response:
+    properties:
+      code:
+        type: integer
+      data:
+        type: string
+      message:
+        type: string
+    type: object
+  gitlab.com_NaMeste_notification-service_internal_web_template.ErrorResponse:
+    properties:
+      error: {}
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  internal_web_message.ErrorResponse:
+    properties:
+      error: {}
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  internal_web_status.Response:
+    properties:
+      code:
+        type: integer
+      data:
+        type: string
+      message:
+        type: string
+    type: object
+  internal_web_template.ErrorResponse:
+    properties:
+      error: {}
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  models.JSONB:
+    additionalProperties: true
+    type: object
+  models.Message:
+    properties:
+      ID:
+        type: string
+      createdAt:
+        type: string
+      data:
+        $ref: '#/definitions/models.JSONB'
+      deletedAt:
+        type: string
+      from:
+        type: string
+      id:
+        type: integer
+      status:
+        type: string
+      subject:
+        type: string
+      templateName:
+        type: string
+      to:
+        items:
+          type: string
+        type: array
+      type:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.Template:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      html:
+        type: string
+      id:
+        type: integer
+      templateName:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/message:
+    get:
+      description: Get all messages
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Message'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_message.ErrorResponse'
+      summary: Get all messages
+      tags:
+      - Messages
+    post:
+      consumes:
+      - application/json
+      description: Create a new message
+      parameters:
+      - description: Message object
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.Message'
+      produces:
+      - text/plain
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_message.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_message.ErrorResponse'
+      summary: Create a new message
+      tags:
+      - Messages
+    put:
+      consumes:
+      - application/json
+      description: Update an existing message
+      parameters:
+      - description: Message object
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.Message'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_message.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_message.ErrorResponse'
+      summary: Update an existing message
+      tags:
+      - Messages
+  /api/v1/message/{id}:
+    delete:
+      description: Delete a message
+      parameters:
+      - description: Message UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_message.ErrorResponse'
+      summary: Delete a message
+      tags:
+      - Messages
+    get:
+      description: Get a message by ID
+      parameters:
+      - description: Message UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Message'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_message.ErrorResponse'
+      summary: Get a message by ID
+      tags:
+      - Messages
+  /api/v1/status/:
+    get:
+      description: Get the status of the API
+      operationId: Status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_status.Response'
+      summary: Get the status
+  /api/v1/template:
+    get:
+      description: Get all templates
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Template'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_template.ErrorResponse'
+      summary: Get all templates
+      tags:
+      - Template
+    post:
+      consumes:
+      - application/json
+      description: Create a new template
+      parameters:
+      - description: Template object
+        in: body
+        name: template
+        required: true
+        schema:
+          $ref: '#/definitions/models.Template'
+      produces:
+      - text/plain
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_template.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_template.ErrorResponse'
+      summary: Create a new template
+      tags:
+      - Template
+    put:
+      consumes:
+      - application/json
+      description: Update an existing template
+      parameters:
+      - description: Template object
+        in: body
+        name: template
+        required: true
+        schema:
+          $ref: '#/definitions/models.Template'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_template.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_template.ErrorResponse'
+      summary: Update an existing template
+      tags:
+      - Template
+  /api/v1/template/{id}:
+    delete:
+      description: Delete a template
+      parameters:
+      - description: Template ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_template.ErrorResponse'
+      summary: Delete a template
+      tags:
+      - Template
+  /api/v1/template/{name}:
+    get:
+      description: Get a template by ID
+      parameters:
+      - description: Template Name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Template'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gitlab.com_NaMeste_notification-service_internal_web_template.ErrorResponse'
+      summary: Get a template by ID
+      tags:
+      - Template
+swagger: "2.0"
