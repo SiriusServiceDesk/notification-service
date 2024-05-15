@@ -1,25 +1,35 @@
-# build stage
-FROM golang:1.21.5 as builder
+FROM golang:1.21.5-alpine as gogcc
 
-WORKDIR /app
+ENV GOOS=linux
+ENV CGO_ENABLED=1
+ENV GO111MODULE=on
+
+RUN apk update && apk add --no-cache \
+        gcc \
+        musl-dev \
+        git \
+        build-base
+
+FROM gogcc as builder
+
+WORKDIR /build
+
 COPY . .
-COPY .gitconfig /etc/gitconfig
+RUN go mod download && go mod verify
 
-RUN go mod download
-
-RUN make build
+RUN go build -ldflags="-s -w" -o app ./cmd/app
 
 # production stage
 FROM alpine:latest
-COPY --from=builder /app/api ./api
-COPY --from=builder /app/build .
-COPY --from=builder /app/config/prod.yaml ./config/
 
-RUN apk update && \
-    apk add --no-cache ca-certificates
+RUN apk update && apk add --no-cache \
+        gcc \
+        musl-dev
 
-RUN update-ca-certificates
+WORKDIR /app/
 
-EXPOSE 3000
+COPY --from=builder /build/api .
+COPY --from=builder /build/app .
+COPY --from=builder /build/config/ /config/
 
-CMD ["./app", "s"]
+CMD ["/app/app", "s"]
