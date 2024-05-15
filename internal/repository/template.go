@@ -67,6 +67,7 @@ func (r *TemplateRepositoryImpl) seeds() {
 	const serverStartName = "serverStartNotification"
 	const successfulRegistrationName = "successfulRegistration"
 	const verifyingEmailName = "verifyingEmail"
+	const resetPassword = "resetPassword"
 
 	templates := []models.Template{
 		{
@@ -75,11 +76,15 @@ func (r *TemplateRepositoryImpl) seeds() {
 		},
 		{
 			TemplateName: successfulRegistrationName,
-			Html:         `Congratulations! Welcome to our website {{.Username}}`,
+			Html:         `Congratulations! Welcome to our website, {{.Name}} {{.Surname}}`,
 		},
 		{
 			TemplateName: verifyingEmailName,
-			Html:         `Thanks for registration <br>Your confirmation code: <b>{{.Code}}<b>`,
+			Html:         `Thanks for registration! <br>Your confirmation code: <b>{{.Code}}<b>`,
+		},
+		{
+			TemplateName: resetPassword,
+			Html:         `Тут ссылка для сброса пароля по идее пока не делал`,
 		},
 	}
 
