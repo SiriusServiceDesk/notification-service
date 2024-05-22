@@ -68,6 +68,7 @@ func (r *TemplateRepositoryImpl) seeds() {
 	const successfulRegistrationName = "successfulRegistration"
 	const verifyingEmailName = "verifyingEmail"
 	const resetPassword = "resetPassword"
+	const updateApplications = "updateApplication"
 
 	templates := []models.Template{
 		{
@@ -85,6 +86,11 @@ func (r *TemplateRepositoryImpl) seeds() {
 		{
 			TemplateName: resetPassword,
 			Html:         `Тут ссылка для сброса пароля по идее пока не делал`,
+		},
+		{
+			TemplateName: updateApplications,
+			Html: `Вашей заявке {{.AppId}} был присвоен статус <b>{{.Status}}</b> <br><br>
+					{{if .Comment}}Комментарий от исполнителя: {{.Comment}} {{end}}`,
 		},
 	}
 
