@@ -89,8 +89,12 @@ func (r *TemplateRepositoryImpl) seeds() {
 		},
 		{
 			TemplateName: updateApplications,
-			Html: `Вашей заявке {{.AppId}} был присвоен статус <b>{{.Status}}</b> <br><br>
-					{{if .Comment}}Комментарий от исполнителя: {{.Comment}} {{end}}`,
+			Html: `<div class="container" style="display:flex;justify-content:center; align-items: center;flex-direction: column;gap:15px;width:100%; font-family: sans-serif;padding: 14px 20px; font-size:12px;font-weight500">	<div style="margin-left: auto">сириусдеск.рф</div>
+  					<div style="width:100%; padding: 20px 15px;background-color:#5046E6;border-radius:10px 10px 10px 0px;color:#FFF">Вашей заявке {{.AppId}} был присвоен статус <b>{{.Status}}</b></div>
+  					{{if .Comment}}<div style="width:100%; padding: 20px 15px;background-color:#F3F3F3;border-radius:10px 10px 10px 0px;"><b>Исполнитель оставил комментарий</b> “{{.Comment}}”</div>
+					{{else}} <div style="width:100%; padding: 20px 15px;background-color:#F3F3F3;border-radius:10px 10px 10px 0px;"><b>Исполнитель не оставил комментарий :( </b></div>
+					{{end}}</div>
+			`,
 		},
 	}
 
