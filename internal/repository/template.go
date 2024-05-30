@@ -81,7 +81,12 @@ func (r *TemplateRepositoryImpl) seeds() {
 		},
 		{
 			TemplateName: verifyingEmailName,
-			Html:         `Thanks for registration! <br>Your confirmation code: <b>{{.Code}}<b>`,
+			Html: `<div class="container" style="display:flex;justify-content:center; align-items: center;flex-direction: column;gap:15px;width:100%; font-family: sans-serif;padding: 14px 20px; font-size:13px;font-weight500">
+						  <div style="margin-left: auto">сириусдеск.рф</div>
+						  <div style="width:100%;display:flex; justify-content:center; padding: 20px 15px;background-color:#5046E6;border-radius:10px 10px 10px 0px;color:#FFF">Спасибо за регистрацию на сириусдеск.рф!</div>
+						  <div style="width:100%; padding: 20px 15px;background-color:#F3F3F3;border-radius:10px 10px 10px 0px;">
+								Ваш код для подтверждения email:&nbsp;<b style="color:#5046E6;">{{.Code}}</b></div>
+						  </div>`,
 		},
 		{
 			TemplateName: resetPassword,
